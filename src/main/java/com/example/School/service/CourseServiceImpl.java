@@ -37,7 +37,7 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public List<Course> getAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return courserepo.getAll();
 	}
 
 	@Override

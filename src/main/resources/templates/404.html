@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+<title>Spring Boot MongoDB Demo</title>
+</head>
+<body>
+	<div class="container">
+	<h1 style="color: red;">ERRRRRRROOOOORRR</h1>
+	</div>
+	
+	<div class="container">
+		<form action="#" th:action="@{/save-user}" th:object="${user}"
+			method="post">
+			<table border="1">
+				<tr>
+					<td><label>First Name</label></td>
+					<td><input type="text" th:field="*{fname}" /></td>
+				</tr>
+				<tr>
+					<td><label>Last Name</label></td>
+					<td><input type="text" th:field="*{lname}" /></td>
+				</tr>
+				<tr>
+					<td><label>Email</label></td>
+					<td><input type="text" th:field="*{email}" /></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Submit" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

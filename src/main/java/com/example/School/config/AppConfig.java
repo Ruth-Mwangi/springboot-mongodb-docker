@@ -9,6 +9,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.example.School.repository.CourseRepo;
+import com.example.School.repository.CourseRepoImpl;
+import com.example.School.repository.UserRepo;
+import com.example.School.repository.UserRepoImpl;
+import com.example.School.service.CourseService;
+import com.example.School.service.CourseServiceImpl;
+import com.example.School.service.UserService;
+import com.example.School.service.UserServiceImpl;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -46,6 +54,19 @@ public class AppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/webjars/**", "/img/**", "/css/**", "/js/**").addResourceLocations(
 				"classpath:/META-INF/resources/webjars/", "classpath:/static/img/", "classpath:/static/css/",
 				"classpath:/static/js/");
+	}
+	
+	public @Bean UserRepo userrepo() {
+		return new UserRepoImpl();
+	}
+	public @Bean CourseRepo courserepo() {
+		return new CourseRepoImpl();
+	}
+	public @Bean UserService userdao() {
+		return new UserServiceImpl();
+	}
+	public @Bean CourseService coursedao() {
+		return new CourseServiceImpl();
 	}
 
 }

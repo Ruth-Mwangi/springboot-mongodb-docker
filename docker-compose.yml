@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+  springboot:
+    image: school/spring-mongo-docker
+    restart: always # This will be ignored if we deploy in docker swarm
+    environment:
+    - spring.data.mongodb.host=mongo
+   
+    ports:
+      - 8080:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    networks:
+    - springappnetwork  
+    deploy:  # This will be considered only in docker swarm.
+      
+      update_config:
+        parallelism: 1
+        delay: 20s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+
+  mongo:
+    image: mongo
+    
+    volumes:
+      - mongodb:/data/db
+    restart: always
+    networks:
+    - springappnetwork
+    
+volumes:
+  mongodb:
+    external: true
+    
+networks:
+  springappnetwork:
+    external: true

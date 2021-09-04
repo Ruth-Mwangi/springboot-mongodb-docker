@@ -15,7 +15,7 @@ public class Course {
 	
 	@Id
 	private String id;
-	private String courseName;
+	private String name;
 	private String description;
 	private List<User> users;
 

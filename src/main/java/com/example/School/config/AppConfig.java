@@ -15,46 +15,37 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
 @Configuration
-@ComponentScan(basePackages = {"com.ruth.School"})
+@ComponentScan(basePackages = { "com.ruth.School" })
 @EnableWebMvc
 public class AppConfig implements WebMvcConfigurer {
-	
+
 	@Value("${spring.data.mongodb.host}")
 	private String host;
 	@Value("${spring.data.mongodb.port}")
 	private String port;
 	@Value("${spring.data.mongodb.database}")
 	private String database;
-	
+
 	/**
 	 * Bean For Mongo Template
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	
-	@Bean
-	public MongoTemplate mongoTemplate() throws Exception {
-		ConnectionString connectionString = new ConnectionString("mongodb://"+host+":"+port+"/"+database);
-		MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(connectionString)
-				.build();
-		MongoTemplate mt=new MongoTemplate(MongoClients.create(mongoClientSettings), database);
-		
-		return mt;
+
+	public @Bean MongoClient mongoClient() {
+		return MongoClients.create("mongodb://" + host + ":" + port);
 	}
-	
+
+	public @Bean MongoTemplate mongoTemplate() {
+		return new MongoTemplate(mongoClient(), database);
+	}
+
 	@Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(
-                "/webjars/**",
-                "/img/**",
-                "/css/**",
-                "/js/**")
-                .addResourceLocations(
-                        "classpath:/META-INF/resources/webjars/",
-                        "classpath:/static/img/",
-                        "classpath:/static/css/",
-                        "classpath:/static/js/");
-    }
-	
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/webjars/**", "/img/**", "/css/**", "/js/**").addResourceLocations(
+				"classpath:/META-INF/resources/webjars/", "classpath:/static/img/", "classpath:/static/css/",
+				"classpath:/static/js/");
+	}
 
 }

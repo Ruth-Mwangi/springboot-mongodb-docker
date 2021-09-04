@@ -5,19 +5,18 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Document(collection = "user") @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class User {
+@Document(collection = "course") @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+public class Course {
+	
 	@Id
 	private String id;
-	private String fname;
-	private String lname;
-	private String role;
-	private String email;
-	private List<Course> courses;
+	private String courseName;
+	private String description;
+	private List<User> users;
 
 }
